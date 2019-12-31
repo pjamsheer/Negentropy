@@ -1,0 +1,52 @@
+{
+ "autoname": "field:purpose_of_order",
+ "creation": "2019-12-14 13:12:06.607688",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "purpose_of_order",
+  "order_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "purpose_of_order",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Purpose of Order",
+   "unique": 1
+  },
+  {
+   "fieldname": "order_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Order Type",
+   "options": "\nOfficial\nPersonal",
+   "reqd": 1
+  }
+ ],
+ "modified": "2019-12-14 13:15:35.382510",
+ "modified_by": "Administrator",
+ "module": "Negentropy Kitchen Order",
+ "name": "Purpose of Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

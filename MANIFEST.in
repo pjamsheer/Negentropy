@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include negentropy *.css
+recursive-include negentropy *.csv
+recursive-include negentropy *.html
+recursive-include negentropy *.ico
+recursive-include negentropy *.js
+recursive-include negentropy *.json
+recursive-include negentropy *.md
+recursive-include negentropy *.png
+recursive-include negentropy *.py
+recursive-include negentropy *.svg
+recursive-include negentropy *.txt
+recursive-exclude negentropy *.pyc

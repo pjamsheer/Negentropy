@@ -1,0 +1,44 @@
+{
+ "creation": "2019-12-27 16:24:20.949544",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "day",
+  "shift_type",
+  "noof_people"
+ ],
+ "fields": [
+  {
+   "fieldname": "day",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Day",
+   "options": "\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Shift Type",
+   "options": "Shift Type"
+  },
+  {
+   "fieldname": "noof_people",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No.of People"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-27 16:24:41.419094",
+ "modified_by": "Administrator",
+ "module": "Negentropy Shift Scheduling",
+ "name": "Shift Configuration Child",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

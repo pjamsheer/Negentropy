@@ -1,0 +1,4 @@
+Negentropy CRM
+Negentropy Core
+Negentropy Kitchen Order
+Negentropy Shift Scheduling

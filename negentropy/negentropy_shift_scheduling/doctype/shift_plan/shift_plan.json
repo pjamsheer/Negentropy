@@ -1,0 +1,98 @@
+{
+ "autoname": "SP.-.#####",
+ "creation": "2019-12-27 16:51:07.278765",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "shift_configuration",
+  "plan_from",
+  "plan_to",
+  "employees_section",
+  "shift_plan_employee",
+  "scheduling_preview_section",
+  "shift_plan_preview",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "shift_configuration",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Shift Configuration",
+   "options": "Shift Configuration",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plan_from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Plan From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plan_to",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Plan To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "employees_section",
+   "fieldtype": "Section Break",
+   "label": "Employees"
+  },
+  {
+   "fieldname": "shift_plan_employee",
+   "fieldtype": "Table",
+   "options": "Shift Plan Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "scheduling_preview_section",
+   "fieldtype": "Section Break",
+   "label": "Scheduling Preview"
+  },
+  {
+   "fieldname": "shift_plan_preview",
+   "fieldtype": "Table",
+   "options": "Shift Plan Preview"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Shift Plan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-12-31 13:47:42.402076",
+ "modified_by": "Administrator",
+ "module": "Negentropy Shift Scheduling",
+ "name": "Shift Plan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

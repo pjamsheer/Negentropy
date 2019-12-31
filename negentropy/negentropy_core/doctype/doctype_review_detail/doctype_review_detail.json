@@ -1,0 +1,67 @@
+{
+ "engine": "InnoDB",
+ "owner": "Administrator",
+ "field_order": [
+  "question_no",
+  "question",
+  "weightage",
+  "low_risk",
+  "medium_risk",
+  "high_risk"
+ ],
+ "quick_entry": 1,
+ "modified_by": "Administrator",
+ "name": "DocType Review Detail",
+ "creation": "2019-08-30 17:39:12.611153",
+ "module": "Negentropy Core",
+ "sort_field": "modified",
+ "fields": [
+  {
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 1,
+   "label": "Question No",
+   "fieldtype": "Data",
+   "fieldname": "question_no"
+  },
+  {
+   "in_list_view": 1,
+   "reqd": 1,
+   "columns": 3,
+   "label": "Question",
+   "fieldtype": "Small Text",
+   "fieldname": "question"
+  },
+  {
+   "label": " Weightage",
+   "fieldname": "weightage",
+   "fieldtype": "Int",
+   "columns": 1
+  },
+  {
+   "label": "Low Risk",
+   "fieldname": "low_risk",
+   "fieldtype": "Small Text",
+   "columns": 2
+  },
+  {
+   "label": "Medium Risk",
+   "fieldname": "medium_risk",
+   "fieldtype": "Small Text",
+   "columns": 2
+  },
+  {
+   "label": " High Risk",
+   "fieldname": "high_risk",
+   "fieldtype": "Small Text",
+   "columns": 2
+  }
+ ],
+ "sort_order": "DESC",
+ "istable": 1,
+ "doctype": "DocType",
+ "permissions": [],
+ "editable_grid": 1,
+ "track_changes": 1,
+ "modified": "2019-09-14 17:48:56.916812"
+}

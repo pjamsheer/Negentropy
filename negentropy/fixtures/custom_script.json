@@ -1,0 +1,46 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Lead",
+  "modified": "2019-08-21 15:18:35.682446",
+  "name": "Lead-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Lead', {\n\trefresh(frm) {\n\t\tfrm.set_df_property('source', 'reqd', 1);\n\t\tfrm.set_df_property('lead_owner', 'reqd', 1);\n\t\tfrm.set_df_property('company_name', 'reqd', 1);\n\t\tfrm.set_df_property('lead_category', 'reqd', 1);\n\t\tif(frappe.user_roles.indexOf('Sales Manager') > -1){\n    \t\tfrm.set_df_property('status', 'read_only', 0);\n\t\t}\n\t},\n\tvalidate(frm) {\n\t\tfrm.set_df_property('source', 'reqd', 1);\n\t\tfrm.set_df_property('lead_owner', 'reqd', 1);\n\t\tfrm.set_df_property('company_name', 'reqd', 1);\n\t\tfrm.set_df_property('lead_category', 'reqd', 1);\n\t}\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Sales Order",
+  "modified": "2019-09-24 13:03:30.583086",
+  "name": "Sales Order-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Sales Order', {\n    before_submit: function(frm) {\n        frappe.call({\n            method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.fetch_opportunity_number\",\n            args: {\n                \"sales_order_id\": cur_frm.doc.name\n            },\n            callback: function(d) {\n                if (d.message) {\n                    frappe.call({\n                        method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.fetch_manufacturing_feasibility\",\n                        args: {\n                            \"sales_order_id\": cur_frm.doc.name\n                        },\n                        callback: function(s) {\n                            frappe.call({\n                                method: \"frappe.client.get_value\",\n                                args: {\n                                    doctype: \"Manufacturing Feasibility\",\n                                    filters: {\n                                        name: s.message,\n                                        stage: [\"=\", 'Order Handling Stage'],\n                                        status: [\"=\", 'Stage 2 Completed']\n                                    },\n                                    fieldname: [\"name\"]\n                                },\n                                callback: function(r) {\n                                    if (r.message == undefined) {\n                                        frappe.validated = false;\n                                        frappe.msgprint(\"Complete Manufacturing Feasibility Order Handling Stage for \" + s.message);\n                                        frappe.call({\n                                            method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.fetch_manufacturing_feasibility\",\n                                            args: {\n                                                \"sales_order_id\": cur_frm.doc.name\n                                            },\n                                            callback: function(r) {\n                                                frappe.call({\n                                                    method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.update_manufacturing_feasibility\",\n                                                    args: {\n                                                        \"name\": r.message\n                                                    },\n                                                    async: false,\n                                                    callback: function(r) {\n                                                        frm.refresh();\n                                                    }\n                                                });\n                                                frappe.set_route(\"Form\", \"Manufacturing Feasibility\", r.message);\n                                            }\n                                        })\n                                    } else {\n                                        return true;\n                                    }\n\n                                }\n                            });\n                        }\n                    });\n                } else {\n                    return true;\n                }\n            }\n        })\n    }\n})"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Opportunity",
+  "modified": "2019-09-24 13:03:46.634339",
+  "name": "Opportunity-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Opportunity', {\n    refresh(frm) {\n        if (frm.custom_buttons['Quotation'] == undefined) {\n            frm.add_custom_button(__('Quotation'), __(\"Create\"));\n        } else {\n            cur_frm.custom_buttons[\"Quotation\"][0].onclick = function() {\n                var opportunity_id = cur_frm.doc.name;\n                var status = fetch_manufacture_feasibility_status(opportunity_id);\n\n                if (status == undefined) {\n                    frappe.msgprint(\"Complete Manufacturing Feasibility for this Opportunity\");\n                    frappe.model.open_mapped_doc({\n                        method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.make_manufacturing_feasibility\",\n                        frm: cur_frm\n                    })\n                    frappe.validated = false;\n                } else if (status.status == 0) {\n                    frappe.msgprint(status.name + \" Manufacturing Feasibility is done for this Opportunity Document and it is needs to be Submitted\");\n                    frappe.set_route(\"Form\", \"Manufacturing Feasibility\", status.name);\n                } else if (status.status == 1) {\n                    frappe.model.open_mapped_doc({\n                        method: \"erpnext.crm.doctype.opportunity.opportunity.make_quotation\",\n                        frm: cur_frm\n                    });\n\n                }\n\n            }\n        }\n\n\n        if (frm.custom_buttons['Manufacturing Feasibility'] == undefined) {\n            frm.add_custom_button(__('Manufacturing Feasibility'), function() {\n                var opportunity_id = cur_frm.doc.name;\n                var status = fetch_manufacture_feasibility_status(opportunity_id);\n                if (status == undefined) {\n                    frappe.model.open_mapped_doc({\n                        method: \"negentropy.negentropy_crm.doctype.manufacturing_feasibility.manufacturing_feasibility.make_manufacturing_feasibility\",\n                        frm: cur_frm\n                    })\n                } else if (status.status == 0) {\n                    frappe.msgprint(status.name + \" Manufacturing Feasibility is done for this Opportunity Document and it is needs to be Submitted\");\n                    frappe.set_route(\"Form\", \"Manufacturing Feasibility\", status.name);\n\n                    return false;\n                } else if (status.status == 1) {\n                    frappe.msgprint(status.name + \" Manufacturing Feasibility is Completed for this Opportunity Document \");\n                    frappe.set_route(\"Form\", \"Manufacturing Feasibility\", status.name);\n\n                    return false;\n                } else {\n\n                    return true;\n                }\n            }, __(\"Create\"));\n        }\n    }\n});\n\nfunction fetch_manufacture_feasibility_status(opportunity_id) {\n    var status = {};\n    frappe.call({\n        method: \"frappe.client.get_value\",\n        args: {\n            doctype: \"Manufacturing Feasibility\",\n            filters: {\n                opportunity_number: [\"=\", opportunity_id],\n                docstatus: [\"!=\", 2]\n            },\n            fieldname: [\"name\", \"docstatus\"]\n        },\n        async: false,\n        callback: function(r) {\n            if (r.message) {\n                status = {\n                    \"status\": r.message.docstatus,\n                    \"name\": r.message.name\n                };\n            } else {\n                status = undefined;\n            }\n\n        }\n    });\n    return status;\n}"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom Script",
+  "dt": "Issue",
+  "modified": "2019-08-16 19:39:43.476540",
+  "name": "Issue-Client",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "script": "frappe.ui.form.on('Issue', {\n\tvalidate(frm) {\n\t\tif(frm.doc.status=='Closed'){\n\t\t    frm.set_df_property('resolution_details', 'reqd', 1);\n\t\t    frm.set_df_property('issue_type', 'reqd', 1);\n\t\t    frm.set_df_property('priority', 'reqd', 1);\n\t\t    \n\t\t}\n\t}\n})"
+ }
+]

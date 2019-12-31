@@ -1,0 +1,46 @@
+{
+ "creation": "2019-12-14 09:40:29.969947",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "sugarsalt_level",
+  "quantity"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "options": "Menu Item",
+   "reqd": 1
+  },
+  {
+   "default": "Medium",
+   "fieldname": "sugarsalt_level",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Sugar/Salt Level",
+   "options": "\nHigh\nMedium\nLow\nNone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Int",
+   "label": "Quantity"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-14 09:40:59.385072",
+ "modified_by": "Administrator",
+ "module": "Negentropy Kitchen Order",
+ "name": "Ordered Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

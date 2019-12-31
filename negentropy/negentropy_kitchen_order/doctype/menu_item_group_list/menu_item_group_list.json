@@ -1,0 +1,36 @@
+{
+ "creation": "2019-12-14 12:30:50.237476",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_name",
+  "cost"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "options": "Menu Item"
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost"
+  }
+ ],
+ "istable": 1,
+ "modified": "2019-12-14 12:31:26.622880",
+ "modified_by": "Administrator",
+ "module": "Negentropy Kitchen Order",
+ "name": "Menu Item Group List",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
